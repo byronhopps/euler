@@ -1,0 +1,69 @@
+#include <stdint.h>
+#include <stdlib.h>
+
+int getLongestChain(int maxTestValue)
+{
+
+    // Create results arrays
+    int size = 5 * maxTestValue;
+    uint32_t* nextValue = (uint32_t*)calloc(size, sizeof(uint32_t));
+    uint16_t* lengthArray = (uint16_t*)calloc(size, sizeof(uint16_t));
+
+    nextValue[1] = 1;
+    lengthArray[1] = 1;
+
+    uint16_t* maxLengthPtr = lengthArray;
+
+    int i;
+    for(i = 1; i < maxTestValue; i++) {
+
+        lengthArray[i] = chainLength(i, nextValue, lengthArray);
+
+        if (lengthArray[i] > *maxLengthPtr)
+            maxLengthPtr = &lengthArray[i];
+    }
+
+    free(nextValue);
+    free(lengthArray);
+
+    return *maxLengthPtr;
+}
+
+int chainLength(int i, uint32_t* nextValue, uint16_t* lengthArray)
+{
+
+    if (nextValue[i] != 0)
+        return lengthArray[i];
+    
+    nextValue[i] = collatz(i);
+    lengthArray[i] = 1 + chainLength(nextValue[i], nextValue, lengthArray);
+
+    return lengthArray[i];
+}
+
+int collatz(int a)
+{
+    if (a % 2 == 0) {
+        return a / 2;
+    } else {
+        return 3*a + 1;
+    }
+}
+
+int getChainLength(int i)
+{
+
+    int size = 5 * i;
+    uint32_t* nextValue = (uint32_t*)calloc(size, sizeof(uint32_t));
+    uint16_t* lengthArray = (uint16_t*)calloc(size, sizeof(uint16_t));
+
+    nextValue[1] = 1;
+    lengthArray[1] = 1;
+
+    int length = chainLength(i, nextValue, lengthArray);
+
+    free(nextValue);
+    free(lengthArray);
+
+    return length;
+}
