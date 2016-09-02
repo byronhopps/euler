@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include "p14.h"
 
-#define HASH_SIZE 100
+#define HASH_SIZE 10000
 
 struct resultsT getLongestChain(int maxTestValue)
 {
@@ -30,7 +30,7 @@ struct resultsT getLongestChain(int maxTestValue)
     return results;
 }
 
-int collatz(int a)
+long int collatz(long int a)
 {
     if (a % 2 == 0) {
         return a / 2;
@@ -58,8 +58,13 @@ struct nodeT* createNode()
 unsigned int getLength(struct nodeT* headNode, struct nodeT* startNode)
 {
 
-    if (startNode->length != 0)
+    if (startNode->length != 0) {
         return startNode->length;
+
+    } else if (startNode->number == 1) {
+        startNode->length = 1;
+        return 1;
+    }
 
     struct nodeT* nextNode = getNode(headNode, collatz(startNode->number));
     int newLength = 1 + getLength(headNode, nextNode);
@@ -69,12 +74,15 @@ unsigned int getLength(struct nodeT* headNode, struct nodeT* startNode)
     return newLength;
 }
 
-struct nodeT* getNode(struct nodeT* headNode, unsigned int location)
+struct nodeT* getNode(struct nodeT* hashTable, unsigned long int location)
 {
+
     struct nodeT* curNode = NULL;
     struct nodeT* newNode = NULL;
-    for(curNode = headNode; curNode->nextNode != NULL;
-            curNode = curNode->nextNode) {
+
+    curNode = &hashTable[location % HASH_SIZE];
+
+    for(; curNode->nextNode != NULL; curNode = curNode->nextNode) {
 
         if (location > curNode->nextNode->number &&
                 location < curNode->number) {
@@ -119,18 +127,16 @@ void freeAllNodes(struct nodeT* headNode)
 
 struct nodeT* initList()
 {
-    // Create head node
-    struct nodeT* headNode = createNode();
-    headNode->number = INT_MAX;
-    headNode->length = 0;
+    // Allocate table
+    struct nodeT* hashTable = (struct nodeT*)calloc(HASH_SIZE, 
+            sizeof(struct nodeT));
 
-    // Create end node
-    struct nodeT* endNode = createNode();
-    endNode->number = 1;
-    endNode->length = 1;
+    // Initialize embedded header nodes
+    for (int i = 0; i < HASH_SIZE; i++) {
+        hashTable[i].nextNode = NULL;
+        hashTable[i].number = INT_MAX;
+        hashTable[i].length = 0;
+    }
 
-    headNode->nextNode = endNode;
-    endNode->nextNode = NULL;
-
-    return headNode;
+    return hashTable;
 }
