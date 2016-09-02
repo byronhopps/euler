@@ -3,20 +3,12 @@
 #include <stdio.h>
 #include "p14.h"
 
+#define HASH_SIZE 100
+
 struct resultsT getLongestChain(int maxTestValue)
 {
-    // Create head node
-    struct nodeT* headNode = createNode();
-    headNode->number = 1;
-    headNode->length = 1;
 
-    // Create end sentinal node
-    struct nodeT* endNode = createNode();
-
-    headNode->nextNode = endNode;
-    endNode->nextNode = NULL;
-    endNode->number = INT_MAX;
-    endNode->length = 0;
+    struct nodeT* headNode = initList();
 
     struct resultsT results;
     results.length = 0;
@@ -28,9 +20,7 @@ struct resultsT getLongestChain(int maxTestValue)
 
         struct nodeT* curNode = getNode(headNode, i);
 
-        curNode->length = getLength(headNode, curNode);
-
-        if (curNode->length > results.length) {
+        if (getLength(headNode, curNode) > results.length) {
             results.length = curNode->length;
             results.startNumber = curNode->number;
         }
@@ -71,21 +61,25 @@ unsigned int getLength(struct nodeT* headNode, struct nodeT* startNode)
     if (startNode->length != 0)
         return startNode->length;
 
-    int nextLocation = collatz(startNode->number);
+    struct nodeT* nextNode = getNode(headNode, collatz(startNode->number));
+    int newLength = 1 + getLength(headNode, nextNode);
 
-    return 1 + getLength(headNode, getNode(headNode, nextLocation));
+    startNode->length = newLength;
+
+    return newLength;
 }
 
 struct nodeT* getNode(struct nodeT* headNode, unsigned int location)
 {
     struct nodeT* curNode = NULL;
+    struct nodeT* newNode = NULL;
     for(curNode = headNode; curNode->nextNode != NULL;
             curNode = curNode->nextNode) {
 
-        if (location < curNode->nextNode->number &&
-                location > curNode->number) {
+        if (location > curNode->nextNode->number &&
+                location < curNode->number) {
 
-            struct nodeT* newNode = createNode();
+            newNode = createNode();
             newNode->number = location;
             newNode->length = 0;
 
@@ -95,11 +89,48 @@ struct nodeT* getNode(struct nodeT* headNode, unsigned int location)
             return newNode;
 
         } else if (curNode->number == location) {
-
             return curNode;
         }
     }
 
-    puts("This shouldn't happen");
-    return NULL;
+    // Edge case for last node in the list
+    if (curNode->number == location)
+        return curNode;
+
+    // Insert node at end of list
+    newNode = createNode();
+    newNode->number = location;
+    newNode->length = 0;
+
+    newNode->nextNode = curNode->nextNode;
+    curNode->nextNode = newNode;
+
+    return newNode;
+}
+
+void freeAllNodes(struct nodeT* headNode)
+{
+    while (headNode != NULL) {
+        struct nodeT* deadNode = headNode;
+        headNode = headNode->nextNode;
+        free(deadNode);
+    }
+}
+
+struct nodeT* initList()
+{
+    // Create head node
+    struct nodeT* headNode = createNode();
+    headNode->number = INT_MAX;
+    headNode->length = 0;
+
+    // Create end node
+    struct nodeT* endNode = createNode();
+    endNode->number = 1;
+    endNode->length = 1;
+
+    headNode->nextNode = endNode;
+    endNode->nextNode = NULL;
+
+    return headNode;
 }

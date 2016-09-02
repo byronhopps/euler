@@ -9,7 +9,7 @@ int main(int argc, char* argv[])
 
     // Too few arguments
     if (argc < 2) {
-        puts("Please enter an upper bound");
+        puts("Please enter a starting number");
         return -1;
     }
 
@@ -34,22 +34,12 @@ int main(int argc, char* argv[])
         return -1;
     }
 
-    // Create head node
-    struct nodeT* headNode = createNode();
-    headNode->number = 1;
-    headNode->length = 1;
-
-    // Create end sentinal node
-    struct nodeT* endNode = createNode();
-
-    headNode->nextNode = endNode;
-    endNode->nextNode = NULL;
-    endNode->number = INT_MAX;
-    endNode->length = 0;
-
+    struct nodeT* = headNode = initList();
     int length = getLength(headNode, getNode(headNode, testValue));
 
     printf("Chain starting at %i has %i terms\n", testValue, length);
+
+    freeAllNodes(headNode);
 
     return 0;
 }
