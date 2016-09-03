@@ -26,6 +26,7 @@ int main (int argc, char* argv[])
     int i, j, sum = 1, diag = 1;
     for(i = 3; i <= size; i += 2) {
         for(j = 0; j < 4; j++) {
+
             diag += i - 1;
             sum += diag;
         }
