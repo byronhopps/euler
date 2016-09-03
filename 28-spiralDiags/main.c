@@ -14,7 +14,7 @@ int main (int argc, char* argv[])
         printf("Too many arguments\n");
         return -1;
 
-    } else if (sscanf(argc[1], "%i%s", &size, garbage) != 1) {
+    } else if (sscanf(argv[1], "%i%s", &size, garbage) != 1) {
         printf("Argument improperly formatted\n");
         return -1;
 
@@ -23,9 +23,12 @@ int main (int argc, char* argv[])
         return -1;
     }
 
-    int i, sum;
+    int i, j, sum = 1, diag = 1;
     for(i = 3; i <= size; i += 2) {
-        sum += 4*(size-1);
+        for(j = 0; j < 4; j++) {
+            diag += i - 1;
+            sum += diag;
+        }
     }
 
     printf("Sum of all the diagonal numbers is %i\n", sum);
