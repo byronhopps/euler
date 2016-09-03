@@ -16,4 +16,4 @@ collatzDebug.o: collatzDebug.c
 	gcc -g -std=c99 -Ofast -c collatzDebug.c
 
 clean:
-	rm main collatzDebug *.o
+	rm -f main collatzDebug *.o
