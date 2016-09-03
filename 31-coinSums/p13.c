@@ -1,10 +1,10 @@
-#include "p13.h"
+#include "p31.h"
 
 int countCoins(int sum)
 {
     static int coinSum = 0;
     static int coins[8] = {0};
-    static int results[8][1024];
+    static int results[1024][8];
 
     // Increment count if new exact match found
     if (sum == 200 && notInResults(coins, results, coinSum)) {
@@ -37,7 +37,7 @@ void addCoin(int* coins, int curCoin, int amount)
     coins[idx(curCoin)] += amount;
 }
 
-int notInResults(int* coins, int* results)
+int notInResults(int* coins, int results[][8], int size)
 {
     int i, j;
     int match, zeroes;
@@ -53,11 +53,11 @@ int notInResults(int* coins, int* results)
         for (i = 0; i < 8; i++) {
 
             // Mark if entry doesn't match
-            if (results[i][j] != coins[i])
+            if (results[j][i] != coins[i])
                 match = 0;
 
             // Mark if entry is non zero
-            if (results[i][j] != 0)
+            if (results[j][i] != 0)
                 zeroes = 0;
 
             // Go to next entry if non zero and not a match
@@ -78,10 +78,10 @@ int notInResults(int* coins, int* results)
     return 1;
 }
 
-void addToResults(int* coins, int* results, int idx)
+void addToResults(int* coins, int results[][8], int idx)
 {
     for (int i = 0; i < 8; i++) {
-        results[i][idx] = coins[i];
+        results[idx][i] = coins[i];
     }
 }
 
