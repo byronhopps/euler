@@ -1,4 +1,4 @@
-int countCoins(int sum);
+int countCoins(int sum, int total);
 
 int nextCoin(int coin);
 

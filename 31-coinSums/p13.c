@@ -1,19 +1,20 @@
+#include <stdio.h>
 #include "p31.h"
 
-int countCoins(int sum)
+int countCoins(int sum, int total)
 {
     static int coinSum = 0;
     static int coins[8] = {0};
-    static int results[1024][8];
+    static int results[2048][8];
 
     // Increment count if new exact match found
-    if (sum == 200 && notInResults(coins, results, coinSum)) {
+    if (sum == total && notInResults(coins, results, coinSum)) {
         addToResults(coins, results, coinSum);
         coinSum += 1;
     }
 
-    // Stop looking if over 200p
-    if (sum >= 200)
+    // Stop looking if sum is over total
+    if (sum >= total)
         return -1;
 
     // Loop over each availible coin
@@ -23,7 +24,9 @@ int countCoins(int sum)
         addCoin(coins, curCoin, 1);
 
         // Check all the possibilities with the current coin
-        int status = countCoins(sum + curCoin);
+        int status = countCoins(sum + curCoin, total);
+
+        addCoin(coins, curCoin, -1);
 
         if (status == -1)
             break;
@@ -113,6 +116,7 @@ int nextCoin(int coin)
             return 0;
 
         default:
+            puts("Invalid coin in nextCoin");
             return -1;
     }
 }
@@ -145,6 +149,7 @@ int idx(int coin)
             return 7;
 
         default:
+            puts("Invalid coin in coin idx()");
             return -1;
     }
 }
