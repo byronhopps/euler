@@ -34,9 +34,9 @@ int main(int argc, char* argv[])
     }
 
     // Put line of code here that calls funtion from problem
-    int result = countDivisors(intArg);
+    int result = getTriNumByDivisors(intArg);
 
-    printf("%i has %i divisors\n", intArg, result);
+    printf("%i is the first triangle number with over %i divisors\n", result, intArg);
 
     return 0;
 }
