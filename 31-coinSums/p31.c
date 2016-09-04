@@ -5,10 +5,11 @@ int countCoins(int total)
 {
     static int coinSum = 0;
     static int coins[8] = {0};
+    static int results[4096][8];
 
     int sum = sumCoins(coins);
-    if (sum == total /*&& notInResults(coins, results, coinSum)*/) {
-        // addToResults(coins, results, coinSum);
+    if (sum == total && notInResults(coins, results, coinSum)) {
+        addToResults(coins, results, coinSum);
         coinSum += 1;
     }
 
