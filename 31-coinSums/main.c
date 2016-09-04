@@ -20,7 +20,7 @@ int main (int argc, char* argv[])
         return -1;
     }
 
-    printf("There are %i ways to make %ip\n", countCoins(0), total);
+    printf("There are %i ways to make %ip\n", countCoins(0, total), total);
 
     return 0;
 }
