@@ -36,7 +36,7 @@ int main(int argc, char* argv[])
     // Put line of code here that calls funtion from problem
     int result = countDivisors(intArg);
 
-    printf("%i had %i divisors\n", intArg, result);
+    printf("%i has %i divisors\n", intArg, result);
 
     return 0;
 }
