@@ -1,0 +1,7 @@
+This problem simply requires pascal's triangle.
+
+For a 20x20 lattice, the solution is the 20th element of row 40.
+
+To obtain this element, we can use combinatorics (40 C 20)
+
+Which evaluates to 40! / (20! * 20!) = 137846528820
