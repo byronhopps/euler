@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <time.h>
 #include "p12.h"
 
 #define NUM_ARGS 2
@@ -33,10 +34,18 @@ int main(int argc, char* argv[])
         return -1;
     }
 
-    // Put line of code here that calls funtion from problem
+    clock_t start, end;
+    double cpuTimeUsed;
+
+    start = clock();
     int result = getTriNumByDivisors(intArg);
+    end = clock();
 
-    printf("%i is the first triangle number with over %i divisors\n", result, intArg);
+    cpuTimeUsed = ((double)(end - start)) / CLOCKS_PER_SEC;
 
+    printf("%i is the first triangle number with over %i divisors\n",
+            result, intArg);
+    printf("Program executed in %f seconds\n", cpuTimeUsed);
+ 
     return 0;
 }
