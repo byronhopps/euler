@@ -34,9 +34,9 @@ int main(int argc, char* argv[])
     }
 
     // Put line of code here that calls funtion from problem
-    int result = triNum(intArg);
+    int result = countDivisors(intArg);
 
-    printf("The %ith triangle number is %i\n", intArg, result);
+    printf("%i had %i divisors\n", intArg, result);
 
     return 0;
 }
