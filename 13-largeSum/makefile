@@ -1,6 +1,7 @@
 # Declaration of variables
 CC = gcc
-CC_FLAGS = -Wall -lgmp
+CC_FLAGS = -Wall
+LD_FLAGS = -lgmp
 
 # File names
 EXEC = main
@@ -9,7 +10,7 @@ OBJECTS = $(SOURCES:.c=.o)
 
 # Main target
 $(EXEC): $(OBJECTS)
-	$(CC) $(OBJECTS) -o $(EXEC)
+	$(CC) $(OBJECTS) -o $(EXEC) $(LD_FLAGS)
 
 # To obtain object files
 %.o: %.c
