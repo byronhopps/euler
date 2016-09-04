@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <time.h>
 
 #define NUM_ARGS 2
 
@@ -32,7 +33,17 @@ int main(int argc, char* argv[])
         return -1;
     }
 
+    clock_t start, end;
+    double cpuTimeUsed;
+
+    start = clock();
     // Put line of code here that calls funtion from problem
+    end = clock();
+
+    cpuTimeUsed = ((double)(end - start)) / CLOCKS_PER_SEC;
+
+    // printf result of program execution
+    printf("Program executed in %f seconds\n", cpuTimeUsed);
 
     return 0;
 }
