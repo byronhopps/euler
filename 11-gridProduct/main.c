@@ -2,7 +2,7 @@
 #include <time.h>
 #include "p11.h"
 
-#define NUM_ARGS 2
+#define NUM_ARGS 1
 
 int main(int argc, char* argv[])
 {
@@ -19,31 +19,16 @@ int main(int argc, char* argv[])
         return -1;
     }
 
-    char garbage[32];
-    int intArg;
-
-    // Argument not only a number
-    if (sscanf(argv[1], "%i%s", &intArg, garbage) != 1) {
-        puts("Argument improperly formatted");
-        return -1;
-    }
-
-    // Argument a non-natural number
-    if (intArg < 1) {
-        puts("Number must be greater than zero");
-        return -1;
-    }
-
     clock_t start, end;
     double cpuTimeUsed;
 
     start = clock();
-    // Put line of code here that calls funtion from problem
+    int result = largestDiagProduct();
     end = clock();
 
     cpuTimeUsed = ((double)(end - start)) / CLOCKS_PER_SEC;
 
-    // printf result of program execution
+    printf("The largest diagonal product is %i\n", result);
     printf("Program executed in %f seconds\n", cpuTimeUsed);
 
     return 0;
