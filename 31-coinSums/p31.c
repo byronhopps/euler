@@ -1,35 +1,27 @@
 #include <stdio.h>
 #include "p31.h"
 
-int countCoins(int sum, int total)
+int countCoins(int total)
 {
     static int coinSum = 0;
     static int coins[8] = {0};
-    static int results[2048][8];
 
-    // Increment count if new exact match found
-    if (sum == total && notInResults(coins, results, coinSum)) {
-        addToResults(coins, results, coinSum);
+    int sum = sumCoins(coins);
+    if (sum == total /*&& notInResults(coins, results, coinSum)*/) {
+        // addToResults(coins, results, coinSum);
         coinSum += 1;
     }
 
-    // Stop looking if sum is over total
     if (sum >= total)
         return -1;
 
     // Loop over each availible coin
-    for (int curCoin = 1; curCoin > 0; curCoin = nextCoin(curCoin)) {
+    for (int curCoin = 200; curCoin > 0; curCoin = nextCoin(curCoin)) {
 
-        // Add coin to coin count
+        // Try with the current coin
         addCoin(coins, curCoin, 1);
-
-        // Check all the possibilities with the current coin
-        int status = countCoins(sum + curCoin, total);
-
+        countCoins(total);
         addCoin(coins, curCoin, -1);
-
-        if (status == -1)
-            break;
     }
 
     return coinSum;
@@ -91,28 +83,28 @@ void addToResults(int* coins, int results[][8], int idx)
 int nextCoin(int coin)
 {
     switch (coin) {
-        case 1:
-            return 2;
-
-        case 2:
-            return 5;
-
-        case 5:
-            return 10;
-
-        case 10:
-            return 20;
-
-        case 20:
-            return 50;
-
-        case 50:
+        case 200:
             return 100;
 
         case 100:
-            return 200;
+            return 50;
 
-        case 200:
+        case 50:
+            return 20;
+
+        case 20:
+            return 10;
+
+        case 10:
+            return 5;
+
+        case 5:
+            return 2;
+
+        case 2:
+            return 1;
+
+        case 1:
             return 0;
 
         default:
@@ -152,4 +144,20 @@ int idx(int coin)
             puts("Invalid coin in coin idx()");
             return -1;
     }
+}
+
+int sumCoins(int* coins)
+{
+    int sum = 0;
+    for (int i = 0; i < 8; i++) {
+        sum += coins[i]*getValue(i);
+    }
+
+    return sum;
+}
+
+int getValue(int idx)
+{
+    int values[8] = {1, 2, 5, 10, 20, 50, 100, 200};
+    return values[idx];
 }
