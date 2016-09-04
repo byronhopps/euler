@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include "p12.h"
 
 #define NUM_ARGS 2
 
@@ -33,6 +34,9 @@ int main(int argc, char* argv[])
     }
 
     // Put line of code here that calls funtion from problem
+    int result = triNum(intArg);
+
+    printf("The %ith triangle number is %i\n", intArg, result);
 
     return 0;
 }
