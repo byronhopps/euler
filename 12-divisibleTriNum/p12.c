@@ -25,3 +25,11 @@ unsigned int countDivisors(unsigned int n)
 
     return factors;
 }
+
+// Returns the first triangular number with n divisors
+unsigned int getTriNumByDivisors(unsigned int n)
+{
+    for (int i = 1; countDivisors(triNum(i)) <= n; i++);
+
+    return triNum(i);
+}
