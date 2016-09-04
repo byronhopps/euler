@@ -16,6 +16,7 @@ int main() {
     }
 
     mpz_out_str(NULL, 10, sum);
+    putc('\n', stdout);
 
     fclose(numbers);
     return 0;
