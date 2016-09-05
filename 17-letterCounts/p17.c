@@ -18,21 +18,40 @@ int numCharCount(int num)
 {
     char numStr[16];
 
-    snprintf(numStr, 16, "%d", num);
-    assert(strlen(numStr) == 3);
+    sprintf(numStr, "%d", num);
+    // assert(strlen(numStr) == 3);
 
     int charSum = 0;
 
-    // <Hundreds digit> "Hundred and"
-    charSum += digitCharCount(numStr[0]) + 10;
+    if (strlen(numStr) == 1) {
+        charSum += digitCharCount(numStr[0]);
+        return charSum;
+    }
 
-    if (numStr[1] == '1') {
-        // Deal with the 'teens
-        charSum += teensDigitCharCount(numStr[1]);
+    if (strlen(numStr) == 2) {
 
-    } else {
-        charSum += tensDigitCharCount(numStr[1]);
-        charSum += digitCharCount[2];
+        if (numStr[0] == '1') {
+            // Deal with the 'teens
+            charSum += teensDigitCharCount(numStr[0]);
+
+        } else {
+            charSum += tensDigitCharCount(numStr[0]);
+            charSum += digitCharCount(numStr[1]);
+        }    
+    }
+
+    if (strlen(numStr) == 3) {
+        // <Hundreds digit> "Hundred and"
+        charSum += digitCharCount(numStr[0]) + 10;
+
+        if (numStr[1] == '1') {
+            // Deal with the 'teens
+            charSum += teensDigitCharCount(numStr[1]);
+
+        } else {
+            charSum += tensDigitCharCount(numStr[1]);
+            charSum += digitCharCount(numStr[2]);
+        }
     }
 
     return charSum;
