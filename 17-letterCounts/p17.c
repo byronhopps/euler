@@ -3,6 +3,17 @@
 #include <stdio.h>
 #include "p17.h"
 
+int getRangedCharCount(int min, int max)
+{
+
+    int charCount = 0;
+    for (int i = min; i <= max; i++) {
+        charCount += numCharCount(i);
+    }
+
+    return charCount;
+}
+
 int numCharCount(int num)
 {
     char numStr[16];
