@@ -1,5 +1,4 @@
 #include <assert.h>
-#include <string.h>
 #include <stdio.h>
 #include "p17.h"
 
@@ -18,42 +17,41 @@ int numCharCount(int num)
 {
     char numStr[16];
 
-    sprintf(numStr, "%d", num);
-    // assert(strlen(numStr) == 3);
+    sprintf(numStr, "%04d", num);
 
+    char thousandsDigit = numStr[0];
+    char hundredsDigit = numStr[1];
+    char tensDigit = numStr[2];
+    char onesDigit = numStr[3];
     int charSum = 0;
 
-    if (strlen(numStr) == 1) {
-        charSum += digitCharCount(numStr[0]);
+    if (thousandsDigit != '0') {
+        // <thousands digit> "Thousand"
+        charSum += digitCharCount(thousandsDigit) + 8;
+    }
+
+    if (hundredsDigit != '0') {
+        // <Hundreds digit> "Hundred"
+        charSum += digitCharCount(hundredsDigit) + 7;
+
+        if (tensDigit != '0' || onesDigit != '0')
+            charSum += 3;
+    }
+
+    if (tensDigit != '0') {
+
+        if (tensDigit == '1') {
+            charSum += teensDigitCharCount(onesDigit);
+
+        } else {
+            charSum += tensDigitCharCount(tensDigit);
+            charSum += digitCharCount(onesDigit);
+        }    
+
         return charSum;
     }
 
-    if (strlen(numStr) == 2) {
-
-        if (numStr[0] == '1') {
-            // Deal with the 'teens
-            charSum += teensDigitCharCount(numStr[0]);
-
-        } else {
-            charSum += tensDigitCharCount(numStr[0]);
-            charSum += digitCharCount(numStr[1]);
-        }    
-    }
-
-    if (strlen(numStr) == 3) {
-        // <Hundreds digit> "Hundred and"
-        charSum += digitCharCount(numStr[0]) + 10;
-
-        if (numStr[1] == '1') {
-            // Deal with the 'teens
-            charSum += teensDigitCharCount(numStr[1]);
-
-        } else {
-            charSum += tensDigitCharCount(numStr[1]);
-            charSum += digitCharCount(numStr[2]);
-        }
-    }
-
+    charSum += digitCharCount(onesDigit);
     return charSum;
 }
 
@@ -88,13 +86,13 @@ int tensDigitCharCount(char digit)
 {
 
     switch (digit) {
+        case '4': // Forty
         case '5': // Fifty
         case '6': // Sixty
             return 5;
 
         case '2': // Twenty
         case '3': // Thirty
-        case '4': // Fourty
         case '8': // Eighty
         case '9': // Ninety
             return 6;
