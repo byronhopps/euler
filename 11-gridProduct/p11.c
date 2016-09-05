@@ -10,9 +10,42 @@ int largestDiagProduct()
 
     importGrid(grid);
 
-    int result = 0;
+    int maxProduct = 0;
+    int product;
 
-    return result;
+    // Loop over all valid starting points
+    // for a \ diagonal
+    for (int i = 0; i < 17; i++) {
+        for (int j = 0; j < 17; j++) {
+
+            // Check the \ diagonal
+            product = 1;
+            for (int k = 0; k < 4; k++) {
+                product *= grid[i+k][j+k];
+            }
+
+            if (product > maxProduct)
+                maxProduct = product;
+        }
+    }
+
+    // Loop over all valid starting points
+    // for a / diagonal
+    for (int i = 3; i < 20; i++) {
+        for (int j = 0; j < 17; j++) {
+
+            // Check the / diagonal
+            product = 1;
+            for (int k = 0; k < 4; k++) {
+                product *= grid[i-k][j+k];
+            }
+
+            if (product > maxProduct)
+                maxProduct = product;
+        }
+    }
+
+    return maxProduct;
 }
 
 void importGrid(int grid[20][20])
