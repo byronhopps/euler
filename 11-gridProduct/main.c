@@ -9,7 +9,7 @@ int main(int argc, char* argv[])
 
     // Too few arguments
     if (argc < NUM_ARGS) {
-        puts("Not enougb arguments");
+        puts("Not enough arguments");
         return -1;
     }
 
