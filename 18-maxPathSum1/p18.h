@@ -1,3 +1,4 @@
 #include <stdio.h>
 
-int getMaxPathSum(FILE* triangleFile);
+int getMaxPathSum(FILE* inputFile);
+void readFile(FILE* inputFile, int array);
