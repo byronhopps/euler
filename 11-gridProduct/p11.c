@@ -48,7 +48,7 @@ int largestDiagProduct()
     }
 
     // Loop over all valid starting points
-    // for a horizontal
+    // for a horizontal --
     for (int i = 0; i < 17; i++) {
         for (int j = 0; j < 20; j++) {
 
@@ -64,7 +64,7 @@ int largestDiagProduct()
     }
 
     // Loop over all valid starting points
-    // for a vertical
+    // for a vertical |
     for (int i = 0; i < 20; i++) {
         for (int j = 0; j < 17; j++) {
 
@@ -90,7 +90,7 @@ void importGrid(int grid[20][20])
 
     for (int i = 0; i < 20; i++) {
         for (int j = 0; j < 20; j++) {
-            fscanf(gridFile, "%i", &grid[i][j]);
+            fscanf(gridFile, "%d", &grid[j][i]);
         }
     }
 
