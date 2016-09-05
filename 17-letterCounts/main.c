@@ -7,12 +7,6 @@
 int main(int argc, char* argv[])
 {
 
-    // Too few arguments
-    if (argc < NUM_ARGS) {
-        puts("Not enougb arguments");
-        return -1;
-    }
-
     // Too many arguments
     if (argc > NUM_ARGS) {
         puts("Too many arguments");
@@ -27,16 +21,16 @@ int main(int argc, char* argv[])
         puts("Argument 1 improperly formatted");
         return -1;
 
-    } else if (sscanf(argv[2], "%i%s", &max, garbage) != 1) {
+    } else if (argc > 2 && sscanf(argv[2], "%i%s", &max, garbage) != 1) {
         puts("Argument 2 improperly formatted");
         return -1;
 
     // Arguments must be greater than zero
-    } else if (min < 1 || max < 1) {
+    } else if (min < 1 || (argc > 2 && max < 1)) {
         puts("Bounds must be greater than zero");
         return -1;
 
-    } else if (min > max) {
+    } else if (argc > 2 && min > max) {
         puts("Upper bound must be greater than lower bound");
         return -1;
     }
@@ -45,13 +39,18 @@ int main(int argc, char* argv[])
     double cpuTimeUsed;
 
     start = clock();
-    int result = getRangedCharCount(min, max);
+    int result = (argc == 3) ? getRangedCharCount(min, max) : \
+        numCharCount(min);
     end = clock();
 
     cpuTimeUsed = ((double)(end - start)) / CLOCKS_PER_SEC;
 
-    printf("%i characters are needed to print out all numbers from "
-            "%i to %i\n", result, min, max);
+    if (argc == 3) {
+        printf("%i characters are needed to print out all numbers from "
+                "%i to %i\n", result, min, max);
+    } else {
+        printf("%d has %d characters\n", min, result);
+    }
     printf("Program executed in %f seconds\n", cpuTimeUsed);
 
     return 0;
