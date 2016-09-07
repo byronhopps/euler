@@ -1,12 +1,12 @@
 #include <stdio.h>
 #include "p18.h"
 
-#define NUM_ROWS 15
-
 int getMaxPathSum(FILE* inputFile)
 {
     int triangle[NUM_ROWS][NUM_ROWS];
-    int pathSum[NUM_ROWS][NUM_ROWS] = {0};
+    int pathSum[NUM_ROWS][NUM_ROWS] = {{0}};
+
+    readFile(inputFile, triangle);
 
     // Initial setup
     pathSum[0][0] = triangle[0][0];
@@ -34,7 +34,7 @@ int getMaxPathSum(FILE* inputFile)
     return maxPathSum;
 }
 
-void readFile(FILE* inputFile, int array)
+void readFile(FILE* inputFile, int array[NUM_ROWS][NUM_ROWS])
 {
 
     for (int i = 0; i < NUM_ROWS; i++) {
