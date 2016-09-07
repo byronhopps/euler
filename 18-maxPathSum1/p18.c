@@ -16,7 +16,7 @@ int getMaxPathSum(FILE* inputFile)
         for (int j = 0; j <= i; j++) {
 
             // Assign the longest path total for each node
-            if (pathSum[i-1][j] > pathSum[i-1][j+1]) {
+            if (j == 0 || pathSum[i-1][j] > pathSum[i-1][j-1]) {
                 pathSum[i][j] = pathSum[i-1][j] + triangle[i][j];
             } else {
                 pathSum[i][j] = pathSum[i-1][j-1] + triangle[i][j];
