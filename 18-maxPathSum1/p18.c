@@ -27,8 +27,8 @@ int getMaxPathSum(FILE* inputFile)
     // Get the longest path sum
     int maxPathSum = 0;
     for (int j = 0; j < NUM_ROWS; j++) {
-        if (pathSum[NUM_ROWS][j] > maxPathSum)
-            maxPathSum = pathSum[NUM_ROWS][j];
+        if (pathSum[NUM_ROWS-1][j] > maxPathSum)
+            maxPathSum = pathSum[NUM_ROWS-1][j];
     }
 
     return maxPathSum;
