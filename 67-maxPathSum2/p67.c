@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "p18.h"
+#include "p67.h"
 
 int getMaxPathSum(FILE* inputFile)
 {

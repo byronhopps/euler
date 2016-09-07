@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <time.h>
-#include "p18.h"
+#include "p67.h"
 
 #define NUM_ARGS 2
 
