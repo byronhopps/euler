@@ -1,3 +1,4 @@
+#include <limits.h>
 #include <stdio.h>
 
 int getMaxPathSum(FILE* inputFile);
