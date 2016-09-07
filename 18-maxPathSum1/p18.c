@@ -5,7 +5,33 @@
 
 int getMaxPathSum(FILE* inputFile)
 {
-    return 0;
+    int triangle[NUM_ROWS][NUM_ROWS];
+    int pathSum[NUM_ROWS][NUM_ROWS] = {0};
+
+    // Initial setup
+    pathSum[0][0] = triangle[0][0];
+
+    // Loop through the triangle
+    for (int i = 1; i < NUM_ROWS; i++) {
+        for (int j = 0; j <= i; j++) {
+
+            // Assign the longest path total for each node
+            if (pathSum[i-1][j] > pathSum[i-1][j+1]) {
+                pathSum[i][j] = pathSum[i-1][j] + triangle[i-1][j];
+            } else {
+                pathSum[i][j] = pathSum[i-1][j-1] + triangle[i-1][j-1];
+            }
+        }
+    }
+
+    // Get the longest path sum
+    int maxPathSum = 0;
+    for (int j = 0; j < NUM_ROWS; j++) {
+        if (pathSum[NUM_ROWS][j] > maxPathSum)
+            maxPathSum = pathSum[NUM_ROWS][j];
+    }
+
+    return maxPathSum;
 }
 
 void readFile(FILE* inputFile, int array)
