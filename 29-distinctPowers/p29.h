@@ -5,10 +5,5 @@ int countDistinctPowers(int minBound, int maxBound);
 // Returns an integer representing a^b
 int power(int a, int b);
 
-struct listItem {
-    int value;
-    struct listItem* next;
-};
-
-// Inserts a value into a linked list
-void insertItem(struct listItem* head, int value);
+// Appends value the the end of an array if it doesn't exist already
+void insertItem(unsigned long long int* array, int value);

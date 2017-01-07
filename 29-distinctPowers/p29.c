@@ -1,33 +1,35 @@
 #include <stdlib.h>
+#include <stdio.h>
 #include "p29.h"
+
+#define ARRAY_SIZE 100000
 
 // Returns the number of distinct exponents from two numbers
 // between minBound and maxBound
 int countDistinctPowers(int minBound, int maxBound)
 {
-    // Setup linked list
-    struct listItem* listHead = NULL;
-    listHead = (struct listItem*)malloc(sizeof(struct listItem));
-    listHead->next = NULL;
-    listHead->value = -1;
+    // Declare array to hold distinct numbers
+    unsigned long long int results[ARRAY_SIZE] = {0};
 
     for (int i = minBound; i <= maxBound; i++) {
         for (int j = minBound; j <= maxBound; j++) {
-            insertItem(listHead, power(i, j));
+            insertItem(results, power(i, j));
         }
     }
 
-    int nodeCount = 0;
-    struct listItem* curNode = listHead;
-    do {
-        // Don't count sentinel nodes
-        if (curNode->value > 0)
-            nodeCount++;
+    // Count items in array
+    int termCount = 0;
+    for (int i = 0; i < ARRAY_SIZE; i++) {
+        if (results[i] != 0) {
+            termCount++;
+        } else {
+            return termCount;
+        }
+    }
 
-        curNode = curNode->next;
-    } while (curNode != NULL);
-
-    return nodeCount;
+    fprintf(stderr, "Results array overflow\n");
+    exit(-1);
+    return -1;
 }
 
 // Returns an integer representing a^b
@@ -46,32 +48,17 @@ int power(int a, int b)
     return result;
 }
 
-// Inserts a value into a linked list
-void insertItem(struct listItem* head, int value)
+void insertItem(unsigned long long int* array, int value)
 {
-    struct listItem* curNode = head;
-    do {
-
-        // Do nothing if value already exists in list
-        if (curNode->value == value) {
+    for (int idx = 0; idx < ARRAY_SIZE; idx++) {
+        if (array[idx] == (unsigned int)value) {
             return;
-
-        // Insert after current node if value to insert falls after current
-        // node and before next node (or next node doesn't exist)
-        } else if ((curNode->next == NULL || curNode->next->value > value) &&
-                (curNode->value < value)) {
-
-            // Add node to linked list
-            struct listItem* newNode = NULL;
-            newNode = (struct listItem*)malloc(sizeof(struct listItem));
-            newNode->next = curNode->next;
-            curNode->next = newNode;
-            newNode->value = value;
+        } else if (array[idx] == 0) {
+            array[idx] = value;
             return;
         }
-
-        curNode = curNode->next;
-    } while (curNode != NULL);
-
+    }
+    fprintf(stderr, "Results array overflow\n");
+    exit(-1);
     return;
 }
