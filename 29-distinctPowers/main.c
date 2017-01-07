@@ -1,7 +1,8 @@
 #include <stdio.h>
 #include <time.h>
+#include "p29.h"
 
-#define NUM_ARGS 2
+#define NUM_ARGS 3
 
 int main(int argc, char* argv[])
 {
@@ -19,16 +20,21 @@ int main(int argc, char* argv[])
     }
 
     char garbage[32];
-    int intArg;
+    int minBound, maxBound;
 
     // Argument not only a number
-    if (sscanf(argv[1], "%i%s", &intArg, garbage) != 1) {
+    if (sscanf(argv[1], "%d%s", &minBound, garbage) != 1) {
+        puts("Argument improperly formatted");
+        return -1;
+    }
+
+    if (sscanf(argv[2], "%d%s", &maxBound, garbage) != 1) {
         puts("Argument improperly formatted");
         return -1;
     }
 
     // Argument a non-natural number
-    if (intArg < 1) {
+    if (minBound < 1 || maxBound < 1) {
         puts("Number must be greater than zero");
         return -1;
     }
@@ -37,13 +43,17 @@ int main(int argc, char* argv[])
     double cpuTimeUsed;
 
     start = clock();
-    // Put line of code here that calls funtion from problem
+
+    // Solve problem 29
+    int result = countDistinctPowers(minBound, maxBound);
+
     end = clock();
 
     cpuTimeUsed = ((double)(end - start)) / CLOCKS_PER_SEC;
 
     // printf result of program execution
-    printf("Program executed in %f seconds\n", cpuTimeUsed);
+    printf("Program executed in %f seconds, finding %d distinct terms\n",
+            cpuTimeUsed, result);
 
     return 0;
 }
