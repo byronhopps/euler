@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include <gmp.h>
 #include "p29.h"
 
 #define ARRAY_SIZE 100000
@@ -8,19 +9,28 @@
 // between minBound and maxBound
 int countDistinctPowers(int minBound, int maxBound)
 {
-    // Declare array to hold distinct numbers
-    unsigned long long int results[ARRAY_SIZE] = {0};
+    // Declare and initialize array to hold distinct numbers
+    mpz_t results[ARRAY_SIZE];
+    for (int i = 0; i < ARRAY_SIZE; i++) {
+        mpz_init(results[i]);
+    }
+
+    // Declare and initialize current result
+    mpz_t result;
+    mpz_init(result);
 
     for (int i = minBound; i <= maxBound; i++) {
         for (int j = minBound; j <= maxBound; j++) {
-            insertItem(results, power(i, j));
+            mpz_ui_pow_ui(result, (unsigned int)i, (unsigned int)j);
+            insertItem(results, result);
         }
     }
 
     // Count items in array
     int termCount = 0;
     for (int i = 0; i < ARRAY_SIZE; i++) {
-        if (results[i] != 0) {
+        // If the current spot in the array is non=zero
+        if (mpz_sgn(results[i]) != 0) {
             termCount++;
         } else {
             return termCount;
@@ -32,33 +42,18 @@ int countDistinctPowers(int minBound, int maxBound)
     return -1;
 }
 
-// Returns an integer representing a^b
-int power(int a, int b)
-{
-    int result = 1;
-
-    while(b) {
-        if (b & 1)
-            result *= a;
-
-        b >>= 1;
-        a *= a;
-    }
-
-    return result;
-}
-
-void insertItem(unsigned long long int* array, int value)
+void insertItem(mpz_t* array, mpz_t value)
 {
     for (int idx = 0; idx < ARRAY_SIZE; idx++) {
-        if (array[idx] == (unsigned int)value) {
+        // If the array value and the current value are the same
+        if (mpz_cmp(array[idx], value) == 0) {
             return;
-        } else if (array[idx] == 0) {
-            array[idx] = value;
+        } else if (mpz_sgn(array[idx]) == 0) {
+            mpz_set(array[idx], value);
             return;
         }
     }
     fprintf(stderr, "Results array overflow\n");
-    exit(-1);
+    exit(1);
     return;
 }
