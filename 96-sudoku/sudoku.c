@@ -111,7 +111,17 @@ int solveSudoku(int* sudoku[9][9])
 }
 
 // Prints the given sudoku puzzle to stdout
-void print_sudoku(int* sudoku[9][9]);
+void print_sudoku(int* sudoku[9][9])
+{
+    for (int i = 0; i < 9; i++) {
+        for (int j = 0; j < 9; j ++ ) {
+            printf("%2d", *sudoku[i][j]);
+        }
+
+        // Print newline at the end of a row
+        printf("\n");
+    }
+}
 
 // Parses a sudoku puzzle from the given filepath
 void parse_sudoku(const char fpath[], int* sudoku[9][9]);
