@@ -1,3 +1,6 @@
+#include <stdio.h>
+#include "sudoku.h"
+
 // Returns 1 if val exists in the ith row of the sudoku puzzle
 // Returns 0 otherwise
 int isValInRow(const int val, const int i, const int* sudoku[9][9])
