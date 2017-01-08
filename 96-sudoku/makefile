@@ -10,11 +10,11 @@ OBJECTS = $(SOURCES:.c=.o)
 
 # Main target
 $(EXEC): $(OBJECTS)
-	$(CC) $(OBJECTS) -o $(EXEC) $(LD_FLAGS)
+	$(CC) build/$< -o $(EXEC) $(LD_FLAGS)
 
 # To obtain object files
 %.o: %.c
-	$(CC) -c $(CC_FLAGS) $< -o $@
+	$(CC) -c $(CC_FLAGS) $< -o build/$@
 
 # To remove generated files
 clean:
