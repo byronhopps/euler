@@ -4,7 +4,7 @@ CC_FLAGS = -Wall -Wextra -g
 LD_FLAGS =
 
 # File names
-EXEC = main
+EXEC = p96
 SOURCES = $(wildcard *.c)
 OBJECTS = $(SOURCES:.c=.o)
 
