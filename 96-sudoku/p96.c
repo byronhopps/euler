@@ -9,14 +9,43 @@
 int solveProblem(char* filePath)
 {
     // Define array containing pointers to the arrays of the sudoku puzzles
-    int* (*)[9] sudokuPuzzles[50];
+    typedef int sudoku_t[9][9];
+    sudoku_t sudokuPuzzles[50];
 
-    // Input sudoku puzzles
-    for (int i = 0; i < 50; i++) {
-        sudokuPuzzles[i] = (int* (*)[9])malloc(sizeof(int* (*)[9]));
-
-        // TODO: Add parser
+    // Open input file
+    FILE* inputFile = fopen(filePath, "r");
+    if (inputFile == NULL) {
+        fprintf(stderr, "Invalid input file\n");
+        exit(-2);
     }
+
+    // Read 50 puzzles from file
+    for (int h = 0; h < 50; h++) {
+
+        // Parse sudoku puzzle header
+        int sudokuNum = -1;
+        if (fscanf(inputFile, "Grid %2d", &sudokuNum) != 1 || sudokuNum != h+1) {
+            fprintf(stderr, "Input grids out of order\n");
+            exit(-2);
+        }
+
+        // Read sudoku puzzle
+        for (int i = 0; i < 9; i++) {
+
+            // Read line of sudoku puzzle
+            for (int j = 0; j < 9; j++) {
+                fscanf(inputFile, "%1d", &sudokuPuzzles[h][i][j]);
+            }
+
+            // Return error if more than 9 numbers on a line
+            if (fgetc(inputFile) != '\n') {
+                fprintf(stderr, "Input sudoku number %d has invalid formatting on line %d\n",
+                        sudokuNum, i);
+                exit(-2);
+            }
+        }
+    }
+    fclose(inputFile);
 
     // Solve all puzzles, returning an error if a puzzle is unsolvable
     for (int i = 0; i < 50; i++) {
@@ -36,10 +65,9 @@ int solveProblem(char* filePath)
 
 
     // Free memory associated with sudoku puzzles
-    for (int i = 0; i < 50; i++) {
-        free(sudokuPuzzles[i]);
-        sudokuPuzzles[i] = NULL;
-    }
+    /* for (int i = 0; i < 50; i++) { */
+    /*     free(sudokuPuzzles[i]); */
+    /* } */
 
     return result;
 }
