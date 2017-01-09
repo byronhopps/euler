@@ -63,11 +63,5 @@ int solveProblem(char* filePath)
         }
     }
 
-
-    // Free memory associated with sudoku puzzles
-    /* for (int i = 0; i < 50; i++) { */
-    /*     free(sudokuPuzzles[i]); */
-    /* } */
-
     return result;
 }
