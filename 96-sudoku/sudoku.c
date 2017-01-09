@@ -3,7 +3,7 @@
 
 // Returns 1 if val exists in the ith row of the sudoku puzzle
 // Returns 0 otherwise
-int isValInRow(const int val, const int i, const int* sudoku[9][9])
+int isValInRow(const int val, const int i, const int* const sudoku[9][9])
 {
     // Loop through current row
     for (int j = 0; i < 9; j++) {
@@ -19,7 +19,7 @@ int isValInRow(const int val, const int i, const int* sudoku[9][9])
 
 // Returns 1 if val exists in the jth column of the sudoku puzzle
 // Returns 0 otherwise
-int isValInColumn(const int val, const int j, const int* sudoku[9][9])
+int isValInColumn(const int val, const int j, const int* const sudoku[9][9])
 {
     // Loop through current column
     for (int i = 0; i < 9; i++) {
@@ -35,7 +35,7 @@ int isValInColumn(const int val, const int j, const int* sudoku[9][9])
 
 // Returns 1 if val exists in the 3x3 square that contains (i,j)
 // Returns 0 otherwise
-int isValInSquare(const int val, const int i, const int j, const int* sudoku[9][9])
+int isValInSquare(const int val, const int i, const int j, const int* const sudoku[9][9])
 {
     // Determine which square the current position is in
     const int xzone = j / 3;
@@ -57,10 +57,10 @@ int isValInSquare(const int val, const int i, const int j, const int* sudoku[9][
 
 // Returns 1 is the current value is a valid move at the location (i,j)
 // Returns 0 otherwise
-int isValValid(const int val, const int i, const int j, const int* sudoku[9][9])
+int isValValid(const int val, const int i, const int j, const int* const sudoku[9][9])
 {
     // Return 0 if the value is in the current row, column, or square
-    if (isValInRow(val, i sudoku) || isValInColumn(val, j, sudoku)
+    if (isValInRow(val, i, sudoku) || isValInColumn(val, j, sudoku)
             || isValInSquare(val, i, j, sudoku))
         return 0;
 
@@ -93,7 +93,7 @@ int solveSudoku(int* sudoku[9][9])
     for (value = 1; value <= 9; value++) {
 
         // If the current value is valid, try to solve the puzzle with it
-        if (isValValid(value, i, j)) {
+        if (isValValid(value, i, j, (const int* const (*)[9])sudoku)) {
             
             // Use the current value in the current location
             *sudoku[i][j] = value;
@@ -114,7 +114,7 @@ int solveSudoku(int* sudoku[9][9])
 }
 
 // Prints the given sudoku puzzle to stdout
-void print_sudoku(int* sudoku[9][9])
+void printSudoku(int* sudoku[9][9])
 {
     for (int i = 0; i < 9; i++) {
         for (int j = 0; j < 9; j ++ ) {
@@ -127,4 +127,4 @@ void print_sudoku(int* sudoku[9][9])
 }
 
 // Parses a sudoku puzzle from the given filepath
-void parse_sudoku(const char fpath[], int* sudoku[9][9]);
+void parseSudoku(const char fpath[], int* sudoku[9][9]);
