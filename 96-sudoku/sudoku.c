@@ -125,6 +125,3 @@ void printSudoku(int sudoku[9][9])
         printf("\n");
     }
 }
-
-// Parses a sudoku puzzle from the given filepath
-void parseSudoku(const char fpath[], int* sudoku[9][9]);
