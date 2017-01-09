@@ -1,6 +1,6 @@
 # Declaration of variables
 CC = gcc
-CC_FLAGS = -Wall -Wextra -g
+CC_FLAGS = -Wall -Wextra -g -std=c99
 LD_FLAGS =
 
 # File names
