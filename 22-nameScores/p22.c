@@ -11,13 +11,12 @@ unsigned long long int getNameScores(char* filePath)
     // Declare array of name strings
     char* nameArray[NAME_ARRAY_SIZE];
 
+    // Variable declaration for file looping
     FILE* namesFile = fopen(filePath, "r");
-
-    char buffer[MAX_NAME_LENGTH];
-    int nameCount = 0;
+    char buffer[MAX_NAME_LENGTH]; int nameCount = 0;
 
     // Loop through all names in file
-    while (fscanf(namesFile, "\"%s\"", buffer) != EOF) {
+    while (fscanf(namesFile, "\"%[^\"]\"", buffer) != EOF) {
 
         // Add pointer to string to nameArray, and copy string to memory
         nameArray[nameCount] = (char*)malloc(sizeof(char[MAX_NAME_LENGTH]));
@@ -26,6 +25,8 @@ unsigned long long int getNameScores(char* filePath)
         // Increment number of names imported
         nameCount++;
     }
+
+    fclose(namesFile);
 
     // Sort nameArray in alphabetic order
     qsort(nameArray, nameCount, sizeof(char*), compareNames);
@@ -37,5 +38,7 @@ unsigned long long int getNameScores(char* filePath)
 
 int compareNames(const void *a, const void* b)
 {
-    return strcmp(a, b);
+    char* s1 = *(char**)a;
+    char* s2 = *(char**)b;
+    return strcmp(s1, s2);
 }
