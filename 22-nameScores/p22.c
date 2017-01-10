@@ -13,13 +13,13 @@ unsigned long long int getNameScores(char* filePath)
     FILE* namesFile = fopen(filePath, "r");
 
     char buffer[MAX_NAME_LENGTH];
-    int i = 0;
+    int nameCount = 0;
 
     // Loop through all names in file
     while (fscanf(namesFile, "\"%s\"", buffer) != EOF) {
-        nameArray[i] = (char*)malloc(sizeof(char[MAX_NAME_LENGTH]));
-        strcpy(nameArray[i], buffer);
-        i++;
+        nameArray[nameCount] = (char*)malloc(sizeof(char[MAX_NAME_LENGTH]));
+        strcpy(nameArray[nameCount], buffer);
+        nameCount++;
     }
 
     return 0;
