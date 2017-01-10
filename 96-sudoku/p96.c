@@ -55,12 +55,19 @@ int solveProblem96(char* filePath)
         }
     }
 
-    // Add sum of the 3 numbers in the top left to accumulator
+    // Add number formed by the 3 digits in the top left to accumulator
     int result = 0;
     for (int i = 0; i < 50; i++) {
-        for (int j = 0; j < 3; j++) {
-            result += sudokuPuzzles[i][0][j];
-        }
+        // for (int j = 0; j < 3; j++)
+        //     result += sudokuPuzzles[i][0][j];
+
+        // Create a string of the number formed by the digits
+        char digits[8] = {0};
+        sprintf(digits, "%1d%1d%1d", sudokuPuzzles[i][0][0],
+                sudokuPuzzles[i][0][1], sudokuPuzzles[i][0][2]);
+
+        // Add number to result accumulator
+        result += atoi(digits);
     }
 
     return result;
