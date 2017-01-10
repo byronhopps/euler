@@ -22,3 +22,6 @@ $(BUILDDIR)/%.o: %.c
 # To remove generated files
 clean:
 	rm -f $(EXEC) $(OBJECTS)
+
+test: $(EXEC)
+	./$(EXEC) sudoku.txt
