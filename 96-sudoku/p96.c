@@ -6,7 +6,7 @@
     // Read puzzle to array
     // Solve puzzle
     // Add sum of the 3 numbers in the top left to accumulating sum 
-int solveProblem(char* filePath)
+int solveProblem96(char* filePath)
 {
     // Define array containing pointers to the arrays of the sudoku puzzles
     typedef int sudoku_t[9][9];
