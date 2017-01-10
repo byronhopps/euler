@@ -84,7 +84,6 @@ int solveSudoku(int sudoku[9][9])
 
     // Compensate for the extra incrementation the for loop will add
     i--; j--;
-printf("Found value %d at location (%d, %d)\n", value, j, i);
 
     // A nonzero value means that all cells are filled
     if (value != 0)
@@ -92,7 +91,6 @@ printf("Found value %d at location (%d, %d)\n", value, j, i);
 
     // Loop through all possible values
     for (value = 1; value <= 9; value++) {
-printf("Testing value %d at location (%d, %d)\n", value, j, i);
         // If the current value is valid, try to solve the puzzle with it
         if (isValValid(value, i, j, (const int (*)[9])sudoku)) {
             
@@ -108,9 +106,6 @@ printf("Testing value %d at location (%d, %d)\n", value, j, i);
                 sudoku[i][j] = 0;
             }
         } 
-else {
-printf("... value invalid\n");
-}
     }
 
     // Return 0 if all possible values and locations have been tested
