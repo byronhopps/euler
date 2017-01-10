@@ -31,6 +31,7 @@ int main(int argc, char* argv[])
     cpuTimeUsed = ((double)(end - start)) / CLOCKS_PER_SEC;
 
     // printf result of program execution
+    printf("The total name score is %lld\n", result);
     printf("Program executed in %f seconds\n", cpuTimeUsed);
 
     return 0;
