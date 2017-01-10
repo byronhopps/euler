@@ -13,14 +13,26 @@ unsigned long long int getNameScores(char* filePath)
 
     // Variable declaration for file looping
     FILE* namesFile = fopen(filePath, "r");
-    char buffer[MAX_NAME_LENGTH]; int nameCount = 0;
+    
+    // Verify file was opened properly
+    if (namesFile == NULL) {
+        fprintf(stderr, "Failed to open file\n");
+        exit(-1);
+    }
+
+    char* newStringPtr = NULL; int nameCount = 0;
 
     // Loop through all names in file
-    while (fscanf(namesFile, "\"%[^\"]\"", buffer) != EOF) {
+    while (fscanf(namesFile, "\"%m[^\"]\"", &newStringPtr) != EOF) {
 
-        // Add pointer to string to nameArray, and copy string to memory
-        nameArray[nameCount] = (char*)malloc(sizeof(char[MAX_NAME_LENGTH]));
-        strcpy(nameArray[nameCount], buffer);
+        // Check for NULL return value
+        if (newStringPtr == NULL) {
+            fprintf(stderr, "Failed to allocate memory for name %d\n", nameCount);
+            exit(-1);
+        }
+
+        // Assign pointer in array as pointer to new string
+        nameArray[nameCount] = newStringPtr;
 
         // Increment number of names imported
         nameCount++;
