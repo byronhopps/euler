@@ -6,7 +6,7 @@
 int isValInRow(const int val, const int i, const int sudoku[9][9])
 {
     // Loop through current row
-    for (int j = 0; i < 9; j++) {
+    for (int j = 0; j < 9; j++) {
 
         // Return 1 if a match was found
         if (sudoku[i][j] == val)
@@ -84,6 +84,7 @@ int solveSudoku(int sudoku[9][9])
 
     // Compensate for the extra incrementation the for loop will add
     i--; j--;
+printf("Found value %d at location (%d, %d)\n", value, j, i);
 
     // A nonzero value means that all cells are filled
     if (value != 0)
@@ -91,7 +92,7 @@ int solveSudoku(int sudoku[9][9])
 
     // Loop through all possible values
     for (value = 1; value <= 9; value++) {
-
+printf("Testing value %d at location (%d, %d)\n", value, j, i);
         // If the current value is valid, try to solve the puzzle with it
         if (isValValid(value, i, j, (const int (*)[9])sudoku)) {
             
@@ -106,7 +107,10 @@ int solveSudoku(int sudoku[9][9])
             } else {
                 sudoku[i][j] = 0;
             }
-        }
+        } 
+else {
+printf("... value invalid\n");
+}
     }
 
     // Return 0 if all possible values and locations have been tested
