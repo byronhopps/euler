@@ -1,16 +1,19 @@
 # Declaration of variables
 CC = gcc
-CC_FLAGS = -Wall -Wextra -g -std=c11
+CC_FLAGS = -Wall -Wextra -g -std=c99
 LD_FLAGS =
 
 # File names
 EXEC = p96
 SOURCES = $(wildcard *.c)
-OBJECTS = $(SOURCES:.c=.o)
+OBJECTS = $(SOURCES:%.c=$(BUILDDIR)/%.o)
+
+# Directories
+BUILDDIR = build
 
 # Main target
 $(EXEC): $(OBJECTS)
-	$(CC) build/$< -o $(EXEC) $(LD_FLAGS)
+	$(CC) $(OBJECTS) -o $(EXEC) $(LD_FLAGS)
 
 # To obtain object files
 %.o: %.c
