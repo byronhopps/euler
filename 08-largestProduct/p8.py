@@ -38,8 +38,14 @@ while i+13 <= len(numString):
     # Multiply the digits in shortStr
     product = 1
     for idx, char in enumerate(shortStr):
-        product *= char.int()
+        product *= int(char)
 
     # Find the largest product
     if product > maxProduct:
         maxProduct = product 
+
+    # Move to next substring
+    i += 1
+
+# Print result
+print "Maximum product of 13 consecutive digits is %d" % maxProduct
