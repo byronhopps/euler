@@ -56,7 +56,7 @@ int solveProblem96(char* filePath)
     }
 
     // Add sum of the 3 numbers in the top left to accumulator
-    int result;
+    int result = 0;
     for (int i = 0; i < 50; i++) {
         for (int j = 0; j < 3; j++) {
             result += sudokuPuzzles[i][0][j];
