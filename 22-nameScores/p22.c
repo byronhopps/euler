@@ -58,4 +58,25 @@ int compareNames(const void *a, const void* b)
 
 int getNameScores(const char *name)
 {
+    int result = 0;
+
+    // Compute total to add to sum based off ASCII offsets
+    for (int i = 0; i < len(name); i++) {
+
+        // If character is uppercase
+        if ((int)name[i] > 64 && (int)name[i] < 91) {
+            result += (int)name[i] - 64;
+
+        // If character is lowercase
+        } else if ((int)name[i] > 96 && (int)name[i] < 123) {
+            result += (int)name[i] - 96;
+
+        // If character is not a letter
+        } else {
+            fprintf(stderr, "Invalid character in name\n");
+            exit(-1);
+        }
+    }
+
+    return result;
 }
