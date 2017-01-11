@@ -45,7 +45,13 @@ unsigned long long int getNameScores(char* filePath)
 
     unsigned long long int totalScore = 0;
 
-    // TODO: free all the malloc-ed memory before returning
+    // Get total name score and free allocated memory
+    for (int i = 0; i < nameCount; i++) {
+        totalScore += i * getLetterTotal(nameArray[i]);
+        free(nameArray[i]);
+        nameArray[i] = NULL;
+    }
+
     return 0;
 }
 
@@ -61,7 +67,7 @@ int getLetterTotal(const char *name)
     int result = 0;
 
     // Compute total to add to sum based off ASCII offsets
-    for (int i = 0; i < strlen(name); i++) {
+    for (size_t i = 0; i < strlen(name); i++) {
 
         // If character is uppercase
         if ((int)name[i] > 64 && (int)name[i] < 91) {
