@@ -43,8 +43,9 @@ unsigned long long int getNameScores(char* filePath)
     // Sort nameArray in alphabetic order
     qsort(nameArray, nameCount, sizeof(char*), compareNames);
 
-    // TODO: free all the malloc-ed memory before returning
+    unsigned long long int totalScore = 0;
 
+    // TODO: free all the malloc-ed memory before returning
     return 0;
 }
 
@@ -53,4 +54,8 @@ int compareNames(const void *a, const void* b)
     const char* s1 = *(const char**)a;
     const char* s2 = *(const char**)b;
     return strcmp(s1, s2);
+}
+
+int getNameScores(const char *name)
+{
 }
