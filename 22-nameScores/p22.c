@@ -47,7 +47,7 @@ unsigned long long int getNameScores(char* filePath)
 
     // Get total name score and free allocated memory
     for (int i = 0; i < nameCount; i++) {
-        totalScore += i * getLetterTotal(nameArray[i]);
+        totalScore += (i+1) * getLetterTotal(nameArray[i]);
         free(nameArray[i]);
         nameArray[i] = NULL;
     }
