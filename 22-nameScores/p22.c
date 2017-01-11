@@ -52,7 +52,7 @@ unsigned long long int getNameScores(char* filePath)
         nameArray[i] = NULL;
     }
 
-    return 0;
+    return totalScore;
 }
 
 int compareNames(const void *a, const void* b)
