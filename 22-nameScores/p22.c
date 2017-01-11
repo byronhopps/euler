@@ -23,7 +23,7 @@ unsigned long long int getNameScores(char* filePath)
     char* newStringPtr = NULL; int nameCount = 0;
 
     // Loop through all names in file
-    while (fscanf(namesFile, "\"%m[^\"]\"", &newStringPtr) != EOF) {
+    while (fscanf(namesFile, "%ms\n", &newStringPtr) != EOF) {
 
         // Check for NULL return value
         if (newStringPtr == NULL) {
@@ -50,7 +50,7 @@ unsigned long long int getNameScores(char* filePath)
 
 int compareNames(const void *a, const void* b)
 {
-    char* s1 = *(char**)a;
-    char* s2 = *(char**)b;
+    const char* s1 = *(const char**)a;
+    const char* s2 = *(const char**)b;
     return strcmp(s1, s2);
 }
