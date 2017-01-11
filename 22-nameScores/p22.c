@@ -56,12 +56,12 @@ int compareNames(const void *a, const void* b)
     return strcmp(s1, s2);
 }
 
-int getNameScores(const char *name)
+int getLetterTotal(const char *name)
 {
     int result = 0;
 
     // Compute total to add to sum based off ASCII offsets
-    for (int i = 0; i < len(name); i++) {
+    for (int i = 0; i < strlen(name); i++) {
 
         // If character is uppercase
         if ((int)name[i] > 64 && (int)name[i] < 91) {
